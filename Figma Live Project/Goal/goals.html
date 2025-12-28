@@ -3,111 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Goals | FINOVA</title>
+    <title>Finova - Financial Goals</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="goals.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="finova-light-theme">
+<body>
+
 
     <main class="dashboard-wrapper">
         <header class="page-header">
             <div class="header-text">
                 <h1>Financial Goals</h1>
-                <p>Strategic growth and milestone tracking.</p>
+                <p>Track and manage your financial objectives</p>
             </div>
-            <div class="header-actions">
-                <button class="btn-export-outline"><i data-lucide="download"></i> Export</button>
-                <button class="btn-create-solid" onclick="toggleDrawer(true)">
-                    <i data-lucide="plus-circle"></i> Create New Goal
-                </button>
-            </div>
+            <button class="btn-primary" onclick="toggleGoalModal(true)">
+                <i data-lucide="plus"></i> Add New Goal
+            </button>
         </header>
 
-        <section class="goals-grid" id="goals-container">
-            </section>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="card-label">Total Goals <i data-lucide="target" class="blue-icon"></i></div>
+                <div class="card-value" id="countGoals">0</div>
+                <div class="card-footer">Active goals</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-label">Total Target <i data-lucide="dollar-sign" class="purple-icon"></i></div>
+                <div class="card-value" id="sumTarget">₹0</div>
+                <div class="card-footer">Combined target</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-label">Total Saved <i data-lucide="trending-up" class="green-icon"></i></div>
+                <div class="card-value" id="sumSaved">₹0</div>
+                <div class="card-footer" id="savedPercent">0% of target</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-label">Monthly Commitment <i data-lucide="calendar" class="pink-icon"></i></div>
+                <div class="card-value" id="sumMonthly">₹0</div>
+                <div class="card-footer">Total per month</div>
+            </div>
+        </div>
 
-        <div class="analytics-layout">
-            <section class="chart-card shadow-soft">
-                <div class="card-header">
-                    <h3>Savings Projections</h3>
-                    <div class="legend-pills">
-                        <span class="pill current">Current</span>
-                        <span class="pill target">Target</span>
-                    </div>
-                </div>
-                <div class="chart-box">
-                    <canvas id="savingsChart"></canvas>
-                </div>
-            </section>
+        <div id="goalsContainer" class="goals-stack">
+            </div>
 
-            <section class="summary-card shadow-soft">
-                <h3>Goal Health</h3>
-                <div class="health-metric">
-                    <div class="metric-circle" id="overall-progress">0%</div>
-                    <p>Average progress across all active milestones.</p>
-                </div>
-                <div class="quick-stats">
-                    <div class="stat-item">
-                        <span class="label">Total Targets</span>
-                        <span class="value" id="stat-total">₹0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="label">Total Saved</span>
-                        <span class="value text-blue" id="stat-saved">₹0</span>
-                    </div>
-                </div>
-            </section>
+        <div class="card chart-card-full" id="chartSection" style="display: none;">
+            <h3>Vacation Fund - Projection</h3>
+            <p class="subtitle">Actual vs projected savings timeline</p>
+            <div class="chart-wrapper">
+                <canvas id="projectionChart"></canvas>
+            </div>
         </div>
     </main>
 
-    <div id="drawer-overlay" class="drawer-overlay" onclick="toggleDrawer(false)">
-        <div class="drawer-panel" onclick="event.stopPropagation()">
-            <div class="drawer-head">
-                <h2>Set Milestone</h2>
-                <button class="close-btn" onclick="toggleDrawer(false)">&times;</button>
+    <div id="goalModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add New Goal</h3>
+                <button onclick="toggleGoalModal(false)" class="close-btn">&times;</button>
             </div>
-
-            <form id="goal-form" onsubmit="handleFormSubmit(event)">
-                <div class="field-group">
+            <form id="goalForm">
+                <div class="input-group">
                     <label>Goal Name</label>
-                    <input type="text" id="g-name" placeholder="e.g. Vacation Fund" class="fin-input" required>
+                    <input type="text" id="gName" placeholder="e.g. Vacation Fund" required>
                 </div>
-
-                <div class="field-row">
-                    <div class="field-group">
-                        <label>Target (₹)</label>
-                        <input type="number" id="g-target" placeholder="50,000" class="fin-input" required>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Target Amount (₹)</label>
+                        <input type="number" id="gTarget" placeholder="50000" required>
                     </div>
-                    <div class="field-group">
-                        <label>Initial (₹)</label>
-                        <input type="number" id="g-current" placeholder="5,000" class="fin-input" required>
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label>Theme Color</label>
-                    <div class="color-picker">
-                        <input type="radio" name="color" id="c-blue" value="blue" checked>
-                        <label for="c-blue" class="swatch blue"></label>
-                        <input type="radio" name="color" id="c-green" value="green">
-                        <label for="c-green" class="swatch green"></label>
-                        <input type="radio" name="color" id="c-purple" value="purple">
-                        <label for="c-purple" class="swatch purple"></label>
+                    <div class="input-group">
+                        <label>Current Progress (₹)</label>
+                        <input type="number" id="gCurrent" placeholder="5000" required>
                     </div>
                 </div>
-
-                <div class="field-group">
-                    <label>Target Date</label>
-                    <input type="date" id="g-date" class="fin-input" required>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Monthly Contribution (₹)</label>
+                        <input type="number" id="gMonthly" placeholder="2000" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Category</label>
+                        <select id="gCat">
+                            <option>Travel</option>
+                            <option>Safety Net</option>
+                            <option>Auto</option>
+                            <option>Home</option>
+                        </select>
+                    </div>
                 </div>
-
-                <button type="submit" class="btn-submit-full">Create Goal Strategy</button>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="toggleGoalModal(false)">Cancel</button>
+                    <button type="submit" class="btn-primary">Create Goal</button>
+                </div>
             </form>
         </div>
     </div>
 
     <script src="goals.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
