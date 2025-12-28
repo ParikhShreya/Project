@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finova - Expert Consultants</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+</head>
+<body>
+    <div class="min-h-screen">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <div class="mb-8">
+                <button class="back-btn" onclick="alert('Going back to Dashboard...')">
+                    <i data-lucide="arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                <h1>Expert Financial Consultants</h1>
+                <p class="subtitle">Connect with certified advisors for personalized financial guidance</p>
+            </div>
+
+            <div class="trust-grid">
+                <div class="trust-card border">
+                    <div class="icon-box blue-bg"><i data-lucide="shield" class="blue-text"></i></div>
+                    <div><div class="stat-label">Certified</div><div class="stat-val">100% CFP</div></div>
+                </div>
+                <div class="trust-card border">
+                    <div class="icon-box green-bg"><i data-lucide="users" class="green-text"></i></div>
+                    <div><div class="stat-label">Clients</div><div class="stat-val">3,500+</div></div>
+                </div>
+                <div class="trust-card border">
+                    <div class="icon-box purple-bg"><i data-lucide="award" class="purple-text"></i></div>
+                    <div><div class="stat-label">Avg Rating</div><div class="stat-val">4.8/5.0</div></div>
+                </div>
+                <div class="trust-card border">
+                    <div class="icon-box yellow-bg"><i data-lucide="clock" class="yellow-text"></i></div>
+                    <div><div class="stat-label">Response</div><div class="stat-val">< 2 hours</div></div>
+                </div>
+            </div>
+
+            <div class="filter-container" id="filterContainer"></div>
+
+            <div class="consultants-grid" id="consultantsGrid"></div>
+        </div>
+    </div>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Book Consultation</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>Consultation Fee</label>
+                    <div class="fee-badge" id="consultantFee">₹199</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Date</label>
+                        <input type="date" id="bookDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Time</label>
+                        <input type="time" id="bookTime" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email ID</label>
+                    <input type="email" id="bookEmail" placeholder="yourname@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="tel" id="bookPhone" placeholder="+91 98765 43210" required>
+                </div>
+                <button type="submit" class="btn btn-primary submit-booking">Confirm Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successOverlay" class="success-overlay">
+        <div class="success-box">
+            <i data-lucide="check-circle" class="success-icon"></i>
+            <h3>Booking Successful!</h3>
+            <p id="successMsg"></p>
+            <button onclick="closeSuccess()" class="btn btn-primary" style="margin-top: 20px;">Return to Page</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

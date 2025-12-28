@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finova - Financial Goals</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="goals.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+
+    <main class="dashboard-wrapper">
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Financial Goals</h1>
+                <p>Track and manage your financial objectives</p>
+            </div>
+            <button class="btn-primary" onclick="toggleGoalModal(true)">
+                <i data-lucide="plus"></i> Add New Goal
+            </button>
+        </header>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="card-label">Total Goals <i data-lucide="target" class="blue-icon"></i></div>
+                <div class="card-value" id="countGoals">0</div>
+                <div class="card-footer">Active goals</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-label">Total Target <i data-lucide="dollar-sign" class="purple-icon"></i></div>
+                <div class="card-value" id="sumTarget">₹0</div>
+                <div class="card-footer">Combined target</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-label">Total Saved <i data-lucide="trending-up" class="green-icon"></i></div>
+                <div class="card-value" id="sumSaved">₹0</div>
+                <div class="card-footer" id="savedPercent">0% of target</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-label">Monthly Commitment <i data-lucide="calendar" class="pink-icon"></i></div>
+                <div class="card-value" id="sumMonthly">₹0</div>
+                <div class="card-footer">Total per month</div>
+            </div>
+        </div>
+
+        <div id="goalsContainer" class="goals-stack">
+            </div>
+
+        <div class="card chart-card-full" id="chartSection" style="display: none;">
+            <h3>Vacation Fund - Projection</h3>
+            <p class="subtitle">Actual vs projected savings timeline</p>
+            <div class="chart-wrapper">
+                <canvas id="projectionChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <div id="goalModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add New Goal</h3>
+                <button onclick="toggleGoalModal(false)" class="close-btn">&times;</button>
+            </div>
+            <form id="goalForm">
+                <div class="input-group">
+                    <label>Goal Name</label>
+                    <input type="text" id="gName" placeholder="e.g. Vacation Fund" required>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Target Amount (₹)</label>
+                        <input type="number" id="gTarget" placeholder="50000" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Current Progress (₹)</label>
+                        <input type="number" id="gCurrent" placeholder="5000" required>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Monthly Contribution (₹)</label>
+                        <input type="number" id="gMonthly" placeholder="2000" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Category</label>
+                        <select id="gCat">
+                            <option>Travel</option>
+                            <option>Safety Net</option>
+                            <option>Auto</option>
+                            <option>Home</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="toggleGoalModal(false)">Cancel</button>
+                    <button type="submit" class="btn-primary">Create Goal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="goals.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
