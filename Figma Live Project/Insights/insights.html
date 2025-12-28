@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Insights - FINOVA</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <main class="dashboard-wrapper">
+        <header class="page-header">
+            <h1>Financial Insights</h1>
+            <p>AI powered analysis of your spending patterns and trends</p>
+        </header>
+
+        <section class="insights-section">
+            <h3 class="section-label"><i data-lucide="sparkles"></i> AI-Generated Insights</h3>
+
+            
+            <div class="insight-grid">
+                <div class="insight-card blue-tint">
+                    <div class="icon-box blue"><i data-lucide="trending-up"></i></div>
+                    <div class="insight-content">
+                        <strong>Food expenses increased 12% this month</strong>
+                        <p>You spent $850 on food and dining, which is $95 more than your average.</p>
+                        <span class="badge high-priority">High Priority</span>
+                    </div>
+                </div>
+                <div class="insight-card green-tint">
+                    <div class="icon-box green"><i data-lucide="check-circle"></i></div>
+                    <div class="insight-content">
+                        <strong>You're saving more than 80% of users</strong>
+                        <p>Your 32% savings rate puts you in the top 20th percentile. Keep it up!</p>
+                        <span class="badge excellent">Excellent</span>
+                    </div>
+                </div>
+                </div>
+        </section>
+
+        <div class="charts-main-grid">
+            <div class="card chart-container">
+                <h3>Monthly Spending vs Budget</h3>
+                <canvas id="spendingBudgetChart"></canvas>
+            </div>
+            <div class="card chart-container">
+                <h3>This Month - Weekly Breakdown</h3>
+                <canvas id="weeklyBarChart"></canvas>
+            </div>
+        </div>
+
+        <div class="charts-main-grid">
+            <div class="card chart-container">
+                <h3>Spending Distribution</h3>
+                <div class="donut-box">
+                    <canvas id="distributionDonut"></canvas>
+                </div>
+            </div>
+            <div class="card chart-container">
+                <h3>Category Performance</h3>
+                <div id="categoryList" class="category-list">
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="insights.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
